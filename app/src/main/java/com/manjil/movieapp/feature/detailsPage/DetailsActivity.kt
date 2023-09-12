@@ -72,7 +72,7 @@ class DetailsActivity : AppCompatActivity() {
         ibPrev.setOnClickListener { previousButtonClicked() }
         ibNext.setOnClickListener { nextButtonClicked() }
         ivToggleFullscreen.setOnClickListener { fullscreenToggle() }
-        ivPlayPause.setOnClickListener{ playPauseVideo()}
+        ivPlayPause.setOnClickListener { playPauseVideo() }
     }
 
     private fun playPauseVideo() {
@@ -107,7 +107,10 @@ class DetailsActivity : AppCompatActivity() {
 
     @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
     private fun setExoPlayer() {
-        player = ExoPlayer.Builder(this).build()
+        player = ExoPlayer.Builder(this)
+            .setSeekForwardIncrementMs(10000)
+            .setSeekBackIncrementMs(100000)
+            .build()
         binding.playerView.player = player
 
         val uri = Uri.parse(videoUrl)
@@ -162,7 +165,7 @@ class DetailsActivity : AppCompatActivity() {
             if (player.playWhenReady) {
                 getControllerViewById<TextView>(R.id.tvCurrentDuration).text =
                     formatTime(player.currentPosition / 1000)
-                Log.d("handler1", "run: durationupdate")
+                Log.d("handler", "run: durationupdate")
             }
             handler.postDelayed(this, 1000)
         }
@@ -236,7 +239,6 @@ class DetailsActivity : AppCompatActivity() {
     private fun hideSystemUI() {
         getControllerViewById<ImageView>(R.id.ivToggleFullscreen).setImageResource(R.drawable.ic_fullscreen_exit)
         binding.scrollView.visibility = View.GONE
-        Log.d("fullscreen", "hideSystemUI: ")
 
         @Suppress("DEPRECATION")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
