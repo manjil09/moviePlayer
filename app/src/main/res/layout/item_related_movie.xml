@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="220dp"
+    android:layout_height="220dp"
+    android:paddingHorizontal="4dp"
+    android:orientation="vertical"
+    android:background="@null"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvMovieBg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        app:cardCornerRadius="40dp">
+
+        <ImageView
+            android:id="@+id/ivMoviePoster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvMovieTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center_vertical|start"
+        android:layout_weight="2"
+        android:paddingHorizontal="4dp"
+        style="@style/SubTitle" />
+</LinearLayout>

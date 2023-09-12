@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "757207806919",
+    "project_id": "movieapp-52db6",
+    "storage_bucket": "movieapp-52db6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757207806919:android:2aef9e7c9fa2f175b19fe2",
+        "android_client_info": {
+          "package_name": "com.manjil.movieapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757207806919-r800ebc5bdimjk059u8v015pj4d7sc2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmyTgH--_ZFPXFcmQ77BWW8o7-YwM0i-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757207806919-r800ebc5bdimjk059u8v015pj4d7sc2s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
