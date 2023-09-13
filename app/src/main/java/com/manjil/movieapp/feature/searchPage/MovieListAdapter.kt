@@ -57,7 +57,7 @@ class MovieListAdapter(
             .placeholder(R.drawable.img_placeholder)
             .into(holder.binding.ivMoviePoster)
         holder.binding.itemMovieContainer.setOnClickListener {
-            onClickListener.onItemClick(data)
+            onClickListener.onItemClick(movieList, position)
         }
     }
 }

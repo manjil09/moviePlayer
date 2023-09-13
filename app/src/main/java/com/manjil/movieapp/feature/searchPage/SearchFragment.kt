@@ -58,10 +58,11 @@ class SearchFragment : Fragment(), ItemOnClickListener {
 
     override fun onItemClick(
 //        dataItem: MoviePojo
-        dataItem: DataItem
+        dataItemList: List<DataItem?>?, position: Int
     ) {
         val intent = Intent(context, DetailsActivity::class.java)
-        intent.putExtra("movie", dataItem)
+        intent.putExtra("movie", dataItemList as ArrayList)
+        intent.putExtra("position", position)
         startActivity(intent)
     }
 

@@ -28,13 +28,15 @@ import com.bumptech.glide.Glide
 import com.manjil.movieapp.BaseViewModel
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivityDetailsBinding
+import com.manjil.movieapp.interfaces.ItemOnClickListener
 import com.manjil.movieapp.model.DataItem
 import java.io.Serializable
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     private lateinit var binding: ActivityDetailsBinding
     private lateinit var viewModel: BaseViewModel
-    private lateinit var data: DataItem
+    private lateinit var dataItemList: ArrayList<DataItem>
+    private var position: Int = 0
     private lateinit var player: ExoPlayer
     private lateinit var ibPrev: ImageButton
     private lateinit var ibNext: ImageButton
@@ -58,6 +60,7 @@ class DetailsActivity : AppCompatActivity() {
         ivToggleFullscreen = getControllerViewById(R.id.ivToggleFullscreen)
         ivPlayPause = getControllerViewById(R.id.ivPlayPause)
 
+        position = intent.getIntExtra("position", 0)
         setMovieDescription()
         setRelatedMovies()
         setExoPlayer()
@@ -85,19 +88,19 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun nextButtonClicked() {
-        val position = player.currentMediaItemIndex
-        if (position > 0) {
-            player.seekTo(position + 1, 0)
+        if (position < dataItemList.size - 1) {
+            openNewVideo(position + 1)
+//            player.seekTo(position + 1, 0)
         }
-        checkPosition()
+//        checkPosition()
     }
 
     private fun previousButtonClicked() {
-        val position = player.currentMediaItemIndex
         if (position > 0) {
-            player.seekTo(position - 1, 0)
+            openNewVideo(position - 1)
+//            player.seekTo(position - 1, 0)
         }
-        checkPosition()
+//        checkPosition()
     }
 
     private fun <T> getControllerViewById(id: Int): T {
@@ -139,11 +142,13 @@ class DetailsActivity : AppCompatActivity() {
                                 )
                             handler.post(durationUpdateRunnable)
                         }
+
                         Player.STATE_ENDED -> {
                             binding.cvThumbnail.visibility = View.VISIBLE
                             player.seekTo(0)
                             player.pause()
                         }
+
                         else -> {
                             ivPlayPause.alpha = 0f
                             handler.removeCallbacks(durationUpdateRunnable)
@@ -179,14 +184,14 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun checkPosition() {
-        if (player.currentMediaItemIndex == 0) {
+        if (position == 0) {
             ibPrev.alpha = .4f
             ibPrev.isEnabled = false
         } else {
             ibPrev.alpha = 1f
             ibPrev.isEnabled = true
         }
-        if (player.currentMediaItemIndex == player.mediaItemCount - 1) {
+        if (position == dataItemList.size - 1) {
             ibNext.alpha = .4f
             ibNext.isEnabled = false
         } else {
@@ -196,14 +201,21 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun setRelatedMovies() {
-        viewModel.getWeatherData(27.7172,85.324)
-        viewModel.weatherData.observe(this) {
-            setMovieListAdapter(it.data)
-        }
+        val adapter =
+            RelatedMovieListAdapter(
+                dataItemList.slice(position + 1 until dataItemList.size),
+                this,
+                this
+            )
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvRelatedMovieContainer.layoutManager = layoutManager
+        binding.rvRelatedMovieContainer.adapter = adapter
     }
 
     private fun setMovieDescription() {
-        data = intent.serializable("movie")!!
+        dataItemList = intent.serializable("movie")!!
+
+        val data: DataItem = dataItemList[position]
         binding.tvMovieTitle.text = data.weather?.description
         binding.tvMovieRating.text = data.temp.toString()
         binding.tvMovieDuration.text = getString(R.string.minutes, data.windSpd.toString())
@@ -214,16 +226,9 @@ class DetailsActivity : AppCompatActivity() {
             data.windCdirFull
         ).repeat(10)
 
-        Glide.with(this).load(thumbnailUrl).placeholder(R.drawable.img_placeholder).into(binding.ivMovieThumbnail)
+        Glide.with(this).load(thumbnailUrl).placeholder(R.drawable.img_placeholder)
+            .into(binding.ivMovieThumbnail)
     }
-
-    private fun setMovieListAdapter(dataItem: List<DataItem?>?) {
-        val adapter = RelatedMovieListAdapter(dataItem,this)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvRelatedMovieContainer.layoutManager = layoutManager
-        binding.rvRelatedMovieContainer.adapter = adapter
-    }
-
 
     private fun fullscreenToggle() {
         val orientation = resources.configuration.orientation
@@ -312,5 +317,17 @@ class DetailsActivity : AppCompatActivity() {
         wasPlaying = false
         player.clearMediaItems()
         player.release()
+    }
+
+    override fun onItemClick(dataItemList: List<DataItem?>?, position: Int) {
+        openNewVideo(position + this.dataItemList.size - dataItemList!!.size)
+    }
+
+    private fun openNewVideo(position: Int) {
+        val intent = Intent(baseContext, DetailsActivity::class.java)
+        intent.putExtra("movie", dataItemList)
+        intent.putExtra("position", position)
+        startActivity(intent)
+        finish()
     }
 }

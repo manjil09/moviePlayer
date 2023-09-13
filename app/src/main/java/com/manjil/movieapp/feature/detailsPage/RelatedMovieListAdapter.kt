@@ -11,9 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ItemRelatedMovieBinding
+import com.manjil.movieapp.interfaces.ItemOnClickListener
 import com.manjil.movieapp.model.DataItem
 
-class RelatedMovieListAdapter(private val movieList: List<DataItem?>?, private val context: Context) :
+class RelatedMovieListAdapter(
+    private val movieList: List<DataItem?>?,
+    private val context: Context,
+    private val itemOnClickListener: ItemOnClickListener
+) :
     RecyclerView.Adapter<RelatedMovieListAdapter.ViewHolder>() {
     private val iconPath = "https://cdn.weatherbit.io/static/img/icons/"
 
@@ -47,5 +52,9 @@ class RelatedMovieListAdapter(private val movieList: List<DataItem?>?, private v
             .load("$iconPath${dataItem.weather.icon}.png")
             .placeholder(R.drawable.img_placeholder)
             .into(holder.binding.ivMoviePoster)
+
+        holder.binding.cvMovieBg.setOnClickListener {
+            itemOnClickListener.onItemClick(movieList, position)
+        }
     }
 }

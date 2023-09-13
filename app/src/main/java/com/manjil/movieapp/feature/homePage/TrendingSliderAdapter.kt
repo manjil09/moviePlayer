@@ -36,7 +36,7 @@ class TrendingSliderAdapter(private val trendingMovieList: List<DataItem?>?, pri
         holder.binding.tvMovieRating.text = data?.temp.toString()
 
         holder.binding.trendingMovieContainer.setOnClickListener{
-            onClickListener.onItemClick(data!!)
+            onClickListener.onItemClick(trendingMovieList,position)
         }
     }
 }

@@ -5,6 +5,6 @@ import com.manjil.movieapp.model.DataItem
 interface ItemOnClickListener {
     fun onItemClick(
 //        dataItem: MoviePojo,
-        dataItem: DataItem
+        dataItemList: List<DataItem?>?, position: Int
     )
 }
