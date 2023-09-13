@@ -88,19 +88,11 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     }
 
     private fun nextButtonClicked() {
-        if (position < dataItemList.size - 1) {
-            openNewVideo(position + 1)
-//            player.seekTo(position + 1, 0)
-        }
-//        checkPosition()
+        if (position < dataItemList.size - 1) openNewVideo(position + 1)
     }
 
     private fun previousButtonClicked() {
-        if (position > 0) {
-            openNewVideo(position - 1)
-//            player.seekTo(position - 1, 0)
-        }
-//        checkPosition()
+        if (position > 0) openNewVideo(position - 1)
     }
 
     private fun <T> getControllerViewById(id: Int): T {
@@ -109,67 +101,60 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
 
     @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
     private fun setExoPlayer() {
-        player = ExoPlayer.Builder(this)
-            .setSeekForwardIncrementMs(10000)
-            .setSeekBackIncrementMs(100000)
-            .build()
+        player =
+            ExoPlayer.Builder(this).setSeekForwardIncrementMs(10000).setSeekBackIncrementMs(100000)
+                .build()
         binding.playerView.player = player
 
         val uri = Uri.parse(videoUrl)
         val mediaItem = MediaItem.fromUri(uri)
         player.setMediaItem(mediaItem)
-        player.addListener(
-            object : Player.Listener {
-                override fun onPositionDiscontinuity(
-                    oldPosition: Player.PositionInfo,
-                    newPosition: Player.PositionInfo,
-                    reason: Int
-                ) {
-                    super.onPositionDiscontinuity(oldPosition, newPosition, reason)
-                    getControllerViewById<TextView>(R.id.tvCurrentDuration).text =
-                        formatTime(player.currentPosition / 1000)
-                }
+        player.addListener(object : Player.Listener {
+            override fun onPositionDiscontinuity(
+                oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int
+            ) {
+                super.onPositionDiscontinuity(oldPosition, newPosition, reason)
+                getControllerViewById<TextView>(R.id.tvCurrentDuration).text =
+                    formatTime(player.currentPosition / 1000)
+            }
 
-                override fun onPlaybackStateChanged(playbackState: Int) {
-                    super.onPlaybackStateChanged(playbackState)
-                    when (playbackState) {
-                        Player.STATE_READY -> {
-                            ivPlayPause.alpha = 1f
-                            getControllerViewById<TextView>(R.id.tvTotalDuration).text =
-                                getString(
-                                    R.string.total_duration,
-                                    formatTime(player.contentDuration / 1000)
-                                )
-                            handler.post(durationUpdateRunnable)
-                        }
-
-                        Player.STATE_ENDED -> {
-                            binding.cvThumbnail.visibility = View.VISIBLE
-                            player.seekTo(0)
-                            player.pause()
-                        }
-
-                        else -> {
-                            ivPlayPause.alpha = 0f
-                            handler.removeCallbacks(durationUpdateRunnable)
-                            Log.d("handler1", "onPlaybackStateChanged: handler canceled")
-                        }
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                super.onPlaybackStateChanged(playbackState)
+                when (playbackState) {
+                    Player.STATE_READY -> {
+                        ivPlayPause.alpha = 1f
+                        getControllerViewById<TextView>(R.id.tvTotalDuration).text = getString(
+                            R.string.total_duration, formatTime(player.contentDuration / 1000)
+                        )
+                        handler.post(durationUpdateRunnable)
                     }
-                }
 
-                override fun onPlayerError(error: PlaybackException) {
-                    super.onPlayerError(error)
-                    if (error.cause is HttpDataSourceException) {
+                    Player.STATE_ENDED -> {
                         binding.cvThumbnail.visibility = View.VISIBLE
-                        Toast.makeText(
-                            this@DetailsActivity,
-                            "Connection timeout: Please check the internet connection.",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        player.seekTo(0)
+                        player.pause()
+                    }
+
+                    else -> {
+                        ivPlayPause.alpha = 0f
+                        handler.removeCallbacks(durationUpdateRunnable)
+                        Log.d("handler1", "onPlaybackStateChanged: handler canceled")
                     }
                 }
             }
-        )
+
+            override fun onPlayerError(error: PlaybackException) {
+                super.onPlayerError(error)
+                if (error.cause is HttpDataSourceException) {
+                    binding.cvThumbnail.visibility = View.VISIBLE
+                    Toast.makeText(
+                        this@DetailsActivity,
+                        "Connection timeout: Please check the internet connection.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        })
     }
 
     private val durationUpdateRunnable = object : Runnable {
@@ -201,12 +186,9 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     }
 
     private fun setRelatedMovies() {
-        val adapter =
-            RelatedMovieListAdapter(
-                dataItemList.slice(position + 1 until dataItemList.size),
-                this,
-                this
-            )
+        val adapter = RelatedMovieListAdapter(
+            dataItemList.filterIndexed { index, _ -> index != position }, this, this
+        )
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvRelatedMovieContainer.layoutManager = layoutManager
         binding.rvRelatedMovieContainer.adapter = adapter
@@ -220,10 +202,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
         binding.tvMovieRating.text = data.temp.toString()
         binding.tvMovieDuration.text = getString(R.string.minutes, data.windSpd.toString())
         binding.tvMovieSynopsis.text = getString(
-            R.string.synopsis_detail,
-            data.weather?.description,
-            data.windCdir,
-            data.windCdirFull
+            R.string.synopsis_detail, data.weather?.description, data.windCdir, data.windCdirFull
         ).repeat(10)
 
         Glide.with(this).load(thumbnailUrl).placeholder(R.drawable.img_placeholder)
@@ -239,12 +218,10 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             hideSystemUI()
         }
-
 //        Handler(Looper.getMainLooper()).postDelayed({
 //            Log.d("handler1", "scalingButtonClicked: ")
 //            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 //        }, 1000)
-
     }
 
     //hides the status bar and navigation bar
@@ -252,8 +229,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
         getControllerViewById<ImageView>(R.id.ivToggleFullscreen).setImageResource(R.drawable.ic_fullscreen_exit)
         binding.scrollView.visibility = View.GONE
 
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = window.insetsController
             if (controller != null) {
                 controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
@@ -261,11 +237,8 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
                     WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
         } else {
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    )
+            window.decorView.systemUiVisibility =
+                (View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_FULLSCREEN)
         }
     }
 
@@ -274,8 +247,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
         getControllerViewById<ImageView>(R.id.ivToggleFullscreen).setImageResource(R.drawable.ic_fullscreen)
         binding.scrollView.visibility = View.VISIBLE
 
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        @Suppress("DEPRECATION") if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.show(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
         } else {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
@@ -284,8 +256,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
 
     private inline fun <reified T : Serializable> Intent.serializable(key: String): T? = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getSerializableExtra(
-            key,
-            T::class.java
+            key, T::class.java
         )
 
         else -> @Suppress("DEPRECATION") getSerializableExtra(key) as? T
@@ -295,10 +266,8 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
         val hours = seconds / 3600
         val minutes = (seconds % 3600) / 60
         val remainingSeconds = seconds % 60
-        return if (hours > 0)
-            String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds)
-        else
-            String.format("%02d:%02d", minutes, remainingSeconds)
+        return if (hours > 0) String.format("%02d:%02d:%02d", hours, minutes, remainingSeconds)
+        else String.format("%02d:%02d", minutes, remainingSeconds)
     }
 
     override fun onResume() {
@@ -320,7 +289,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     }
 
     override fun onItemClick(dataItemList: List<DataItem?>?, position: Int) {
-        openNewVideo(position + this.dataItemList.size - dataItemList!!.size)
+        if (position >= this.position) openNewVideo(position + 1) else openNewVideo(position)
     }
 
     private fun openNewVideo(position: Int) {
