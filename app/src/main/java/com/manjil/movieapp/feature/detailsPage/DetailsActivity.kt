@@ -29,7 +29,6 @@ import com.manjil.movieapp.BaseViewModel
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivityDetailsBinding
 import com.manjil.movieapp.model.DataItem
-import com.manjil.movieapp.model.MoviePojo
 import java.io.Serializable
 
 class DetailsActivity : AppCompatActivity() {
@@ -197,9 +196,9 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun setRelatedMovies() {
-        viewModel.getMovieList()
-        viewModel.movieList.observe(this) {
-            setMovieListAdapter(it)
+        viewModel.getWeatherData(27.7172,85.324)
+        viewModel.weatherData.observe(this) {
+            setMovieListAdapter(it.data)
         }
     }
 
@@ -218,8 +217,8 @@ class DetailsActivity : AppCompatActivity() {
         Glide.with(this).load(thumbnailUrl).placeholder(R.drawable.img_placeholder).into(binding.ivMovieThumbnail)
     }
 
-    private fun setMovieListAdapter(relatedMovieList: ArrayList<MoviePojo>?) {
-        val adapter = RelatedMovieListAdapter(relatedMovieList!!)
+    private fun setMovieListAdapter(dataItem: List<DataItem?>?) {
+        val adapter = RelatedMovieListAdapter(dataItem,this)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvRelatedMovieContainer.layoutManager = layoutManager
         binding.rvRelatedMovieContainer.adapter = adapter

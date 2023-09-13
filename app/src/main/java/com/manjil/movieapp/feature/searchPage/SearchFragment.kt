@@ -24,7 +24,7 @@ class SearchFragment : Fragment(), ItemOnClickListener {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
-        viewModel = ViewModelProvider(this)[BaseViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[BaseViewModel::class.java]
         return binding.root
     }
 
@@ -33,14 +33,10 @@ class SearchFragment : Fragment(), ItemOnClickListener {
 
         setTabLayout()
 
-        viewModel.getMovieList()
-        viewModel.getWeatherData(27.7172,85.324)
+//        viewModel.getWeatherData(27.7172,85.324)
         viewModel.weatherData.observe(viewLifecycleOwner) {
             setMovieListAdapter(it.data)
         }
-//        viewModel.movieList.observe(viewLifecycleOwner){
-//            setMovieListAdapter(it)
-//        }
     }
 
     private fun setTabLayout() {

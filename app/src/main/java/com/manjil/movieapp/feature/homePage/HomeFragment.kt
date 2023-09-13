@@ -26,7 +26,7 @@ class HomeFragment : Fragment(), ItemOnClickListener {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        viewModel = ViewModelProvider(this)[BaseViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[BaseViewModel::class.java]
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -34,12 +34,7 @@ class HomeFragment : Fragment(), ItemOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getMovieList()
-        viewModel.getWeatherData(27.7172,85.324)
-
-//        viewModel.movieList.observe(viewLifecycleOwner, Observer {
-//            setMovieListAdapter(it)
-//        })
+//        viewModel.getWeatherData(27.7172,85.324)
         viewModel.weatherData.observe(viewLifecycleOwner) {
             setMovieListAdapter(it.data)
         }
