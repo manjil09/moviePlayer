@@ -64,6 +64,7 @@ class DetailsActivity : AppCompatActivity() {
         setExoPlayer()
         binding.cvThumbnail.setOnClickListener {
             binding.cvThumbnail.visibility = View.GONE
+            player.prepare()
             player.play()
         }
         checkPosition()
@@ -115,7 +116,6 @@ class DetailsActivity : AppCompatActivity() {
         val uri = Uri.parse(videoUrl)
         val mediaItem = MediaItem.fromUri(uri)
         player.setMediaItem(mediaItem)
-        player.prepare()
         player.addListener(
             object : Player.Listener {
                 override fun onPositionDiscontinuity(
@@ -156,6 +156,7 @@ class DetailsActivity : AppCompatActivity() {
                 override fun onPlayerError(error: PlaybackException) {
                     super.onPlayerError(error)
                     if (error.cause is HttpDataSourceException) {
+                        binding.cvThumbnail.visibility = View.VISIBLE
                         Toast.makeText(
                             this@DetailsActivity,
                             "Connection timeout: Please check the internet connection.",
@@ -214,7 +215,7 @@ class DetailsActivity : AppCompatActivity() {
             data.windCdirFull
         ).repeat(10)
 
-        Glide.with(this).load(thumbnailUrl).into(binding.ivMovieThumbnail)
+        Glide.with(this).load(thumbnailUrl).placeholder(R.drawable.img_placeholder).into(binding.ivMovieThumbnail)
     }
 
     private fun setMovieListAdapter(relatedMovieList: ArrayList<MoviePojo>?) {
