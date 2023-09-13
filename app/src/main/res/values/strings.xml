@@ -16,10 +16,12 @@
     <string name="synopsis_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="related_movies">Related Movies</string>
     <string name="minutes">%1$s+ minutes</string>
-    <string name="synopsis_detail">%1$s %2$s %3$s</string>
+    <string name="synopsis_detail">%1$s %2$s %3$s </string>
     <string name="sign_out">Sign Out</string>
     <string name="previous_video">Previous video</string>
     <string name="next_video">Next video</string>
     <string name="total_duration">" / %1$s"</string>
     <string name="start_duration">00:00</string>
+    <string name="rewind">Rewind 10 seconds</string>
+    <string name="fast_forward">Fast forward 10 seconds</string>
 </resources>

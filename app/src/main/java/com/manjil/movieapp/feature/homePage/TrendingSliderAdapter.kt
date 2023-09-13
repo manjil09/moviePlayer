@@ -13,9 +13,7 @@ import com.manjil.movieapp.model.DataItem
 class TrendingSliderAdapter(private val trendingMovieList: List<DataItem?>?, private val onClickListener: ItemOnClickListener, private val context: Context): RecyclerView.Adapter<TrendingSliderAdapter.ViewHolder>() {
     private val iconPath = "https://cdn.weatherbit.io/static/img/icons/"
 
-    class ViewHolder(val binding: ItemTrendingMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class ViewHolder(val binding: ItemTrendingMovieBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemTrendingMovieBinding.inflate(LayoutInflater.from(parent.context),parent,false)

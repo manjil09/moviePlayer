@@ -6,7 +6,7 @@ import com.manjil.movieapp.api.ApiService
 import retrofit2.Call
 
 class MovieModel {
-    fun getMovieList(): ArrayList<MoviePojo>{
+    fun getMovieList(): ArrayList<MoviePojo> {
         val moviePojoList = ArrayList<MoviePojo>()
         moviePojoList.add(MoviePojo("First Title", R.mipmap.image, 7.7, 2023))
         moviePojoList.add(MoviePojo("Second Title", R.mipmap.image, 8.6, 2018))
@@ -14,8 +14,8 @@ class MovieModel {
         return moviePojoList
     }
 
-    fun getWeatherData(lat:Double, lon:Double): Call<WeatherPojo>{
+    fun getWeatherData(lat: Double, lon: Double): Call<WeatherPojo> {
         val retrofit = ApiInstance.getInstance()
-        return retrofit.create(ApiService::class.java).getWeatherData(lat,lon)
+        return retrofit.create(ApiService::class.java).getWeatherData(lat, lon)
     }
 }

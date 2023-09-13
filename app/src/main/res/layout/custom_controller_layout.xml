@@ -10,55 +10,57 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/round_background"
+        android:contentDescription="@string/previous_video"
         android:src="@drawable/ic_previous"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/exo_rew"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/previous_video" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/ibNext"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/round_background"
+        android:contentDescription="@string/next_video"
         android:src="@drawable/ic_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/exo_ffwd"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/next_video" />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/exo_rew"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/round_background"
+        android:contentDescription="@string/rewind"
         android:src="@drawable/ic_replay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ivPlayPause"
         app:layout_constraintStart_toEndOf="@id/ibPrev"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/next_video" />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/exo_ffwd"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/round_background"
+        android:contentDescription="@string/fast_forward"
         android:src="@drawable/ic_forward"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ibNext"
         app:layout_constraintStart_toEndOf="@id/ivPlayPause"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/next_video" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivPlayPause"
-        android:alpha="0"
-        android:padding="8dp"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/ic_pause"
+        android:alpha="0"
         android:background="@drawable/round_background"
+        android:padding="8dp"
+        android:src="@drawable/ic_pause"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,14 +74,15 @@
         android:text="@string/start_duration"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/exo_progress"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/tvTotalDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/exo_progress"
-        app:layout_constraintStart_toEndOf="@id/tvCurrentDuration"/>
+        app:layout_constraintStart_toEndOf="@id/tvCurrentDuration" />
 
     <ImageView
         android:id="@+id/ivToggleFullscreen"
@@ -98,9 +101,10 @@
         android:layout_height="wrap_content"
         android:background="@null"
         app:buffered_color="@color/white"
-        app:unplayed_color="@color/light_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:played_color="@color/bright_red" />
+        app:played_color="@color/bright_red"
+        app:unplayed_color="@color/light_gray" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

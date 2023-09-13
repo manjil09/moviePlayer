@@ -13,7 +13,6 @@ import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ItemMovieBinding
 import com.manjil.movieapp.interfaces.ItemOnClickListener
 import com.manjil.movieapp.model.DataItem
-import com.manjil.movieapp.model.MoviePojo
 
 class MovieListAdapter(
 //    private val movieList: ArrayList<MoviePojo>,

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -16,8 +15,6 @@ import com.manjil.movieapp.databinding.FragmentHomeBinding
 import com.manjil.movieapp.feature.detailsPage.DetailsActivity
 import com.manjil.movieapp.interfaces.ItemOnClickListener
 import com.manjil.movieapp.model.DataItem
-import com.manjil.movieapp.model.MoviePojo
-import com.manjil.movieapp.model.WeatherPojo
 import kotlin.math.abs
 
 class HomeFragment : Fragment(), ItemOnClickListener {
@@ -43,9 +40,9 @@ class HomeFragment : Fragment(), ItemOnClickListener {
 //        viewModel.movieList.observe(viewLifecycleOwner, Observer {
 //            setMovieListAdapter(it)
 //        })
-        viewModel.weatherData.observe(viewLifecycleOwner, Observer {
+        viewModel.weatherData.observe(viewLifecycleOwner) {
             setMovieListAdapter(it.data)
-        })
+        }
     }
 
     private fun setMovieListAdapter(list: List<DataItem?>?) {

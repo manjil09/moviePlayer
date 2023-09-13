@@ -28,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
         firebaseAuth = Firebase.auth
 
-        binding.btSignUp.setOnClickListener{signUpUser()}
+        binding.btSignUp.setOnClickListener { signUpUser() }
     }
 
     private fun signUpUser() {
@@ -42,7 +42,7 @@ class SignUpActivity : AppCompatActivity() {
             binding.progressbar.visibility = View.GONE
             return
         }
-        if (password.isEmpty()){
+        if (password.isEmpty()) {
             showToastMessage("Please enter your password.")
             binding.progressbar.visibility = View.GONE
             return
@@ -80,7 +80,7 @@ class SignUpActivity : AppCompatActivity() {
             }
     }
 
-    private fun showToastMessage(message: String){
-        Toast.makeText(baseContext,message,Toast.LENGTH_LONG).show()
+    private fun showToastMessage(message: String) {
+        Toast.makeText(baseContext, message, Toast.LENGTH_LONG).show()
     }
 }

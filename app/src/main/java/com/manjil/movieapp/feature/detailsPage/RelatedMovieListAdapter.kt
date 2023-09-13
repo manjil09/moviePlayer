@@ -11,9 +11,7 @@ import com.manjil.movieapp.databinding.ItemRelatedMovieBinding
 import com.manjil.movieapp.model.MoviePojo
 
 class RelatedMovieListAdapter(private val moviePojoList: ArrayList<MoviePojo>): RecyclerView.Adapter<RelatedMovieListAdapter.ViewHolder>() {
-    class ViewHolder(var binding: ItemRelatedMovieBinding) : RecyclerView.ViewHolder(binding.root) {
-
-    }
+    class ViewHolder(var binding: ItemRelatedMovieBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemRelatedMovieBinding.inflate(LayoutInflater.from(parent.context),parent,false)

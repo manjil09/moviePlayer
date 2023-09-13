@@ -17,7 +17,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
@@ -88,7 +87,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun nextButtonClicked() {
         val position = player.currentMediaItemIndex
         if (position > 0) {
-            player.seekTo(position - 1, 0)
+            player.seekTo(position + 1, 0)
         }
         checkPosition()
     }
@@ -131,18 +130,26 @@ class DetailsActivity : AppCompatActivity() {
 
                 override fun onPlaybackStateChanged(playbackState: Int) {
                     super.onPlaybackStateChanged(playbackState)
-                    if (playbackState == Player.STATE_READY) {
-                        ivPlayPause.alpha = 1f
-                        getControllerViewById<TextView>(R.id.tvTotalDuration).text =
-                            getString(
-                                R.string.total_duration,
-                                formatTime(player.contentDuration / 1000)
-                            )
-                        handler.post(durationUpdateRunnable)
-                    } else {
-                        ivPlayPause.alpha = 0f
-                        handler.removeCallbacks(durationUpdateRunnable)
-                        Log.d("handler1", "onPlaybackStateChanged: handler cancled")
+                    when (playbackState) {
+                        Player.STATE_READY -> {
+                            ivPlayPause.alpha = 1f
+                            getControllerViewById<TextView>(R.id.tvTotalDuration).text =
+                                getString(
+                                    R.string.total_duration,
+                                    formatTime(player.contentDuration / 1000)
+                                )
+                            handler.post(durationUpdateRunnable)
+                        }
+                        Player.STATE_ENDED -> {
+                            binding.cvThumbnail.visibility = View.VISIBLE
+                            player.seekTo(0)
+                            player.pause()
+                        }
+                        else -> {
+                            ivPlayPause.alpha = 0f
+                            handler.removeCallbacks(durationUpdateRunnable)
+                            Log.d("handler1", "onPlaybackStateChanged: handler canceled")
+                        }
                     }
                 }
 
@@ -165,7 +172,7 @@ class DetailsActivity : AppCompatActivity() {
             if (player.playWhenReady) {
                 getControllerViewById<TextView>(R.id.tvCurrentDuration).text =
                     formatTime(player.currentPosition / 1000)
-                Log.d("handler", "run: durationupdate")
+                Log.d("handler", "run: durationUpdate")
             }
             handler.postDelayed(this, 1000)
         }
@@ -190,9 +197,9 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun setRelatedMovies() {
         viewModel.getMovieList()
-        viewModel.movieList.observe(this, Observer {
+        viewModel.movieList.observe(this) {
             setMovieListAdapter(it)
-        })
+        }
     }
 
     private fun setMovieDescription() {
