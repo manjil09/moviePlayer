@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black_shade"
-            app:controller_layout_id="@layout/custom_controller_layout"
+            app:controller_layout_id="@layout/controller_layout"
             app:hide_on_touch="true"
             app:show_buffering="always"
             app:show_timeout="4000"

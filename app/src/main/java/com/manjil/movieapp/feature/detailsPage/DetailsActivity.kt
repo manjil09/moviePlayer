@@ -102,7 +102,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
     private fun setExoPlayer() {
         player =
-            ExoPlayer.Builder(this).setSeekForwardIncrementMs(10000).setSeekBackIncrementMs(100000)
+            ExoPlayer.Builder(this).setSeekForwardIncrementMs(10000).setSeekBackIncrementMs(10000)
                 .build()
         binding.playerView.player = player
 
@@ -122,6 +122,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
                 super.onPlaybackStateChanged(playbackState)
                 when (playbackState) {
                     Player.STATE_READY -> {
+
                         ivPlayPause.alpha = 1f
                         getControllerViewById<TextView>(R.id.tvTotalDuration).text = getString(
                             R.string.total_duration, formatTime(player.contentDuration / 1000)
@@ -211,17 +212,19 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
 
     private fun fullscreenToggle() {
         val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-            showSystemUI()
-        } else {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            hideSystemUI()
-        }
+        requestedOrientation =
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            else ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
 //        Handler(Looper.getMainLooper()).postDelayed({
 //            Log.d("handler1", "scalingButtonClicked: ")
 //            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 //        }, 1000)
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) hideSystemUI() else showSystemUI()
     }
 
     //hides the status bar and navigation bar
