@@ -122,8 +122,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
                 super.onPlaybackStateChanged(playbackState)
                 when (playbackState) {
                     Player.STATE_READY -> {
-
-                        ivPlayPause.alpha = 1f
+//                        ivPlayPause.alpha = 1f
                         getControllerViewById<TextView>(R.id.tvTotalDuration).text = getString(
                             R.string.total_duration, formatTime(player.contentDuration / 1000)
                         )
@@ -137,7 +136,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
                     }
 
                     else -> {
-                        ivPlayPause.alpha = 0f
+//                        ivPlayPause.alpha = 0f
                         handler.removeCallbacks(durationUpdateRunnable)
                         Log.d("handler1", "onPlaybackStateChanged: handler canceled")
                     }

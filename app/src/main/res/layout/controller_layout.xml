@@ -84,7 +84,6 @@
         android:id="@+id/ivPlayPause"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:alpha="1"
         android:background="@drawable/round_background"
         android:padding="8dp"
         android:src="@drawable/ic_pause"
