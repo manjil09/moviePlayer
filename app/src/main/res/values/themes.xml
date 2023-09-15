@@ -33,6 +33,7 @@
         <item name="tabSelectedTextColor">@color/bright_red</item>
         <item name="tabTextColor">@color/white</item>
         <item name="tabMode">scrollable</item>
+        <item name="tabGravity">start</item>
     </style>
 
     <style name="Title">

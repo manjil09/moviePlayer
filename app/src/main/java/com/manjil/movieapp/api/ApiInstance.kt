@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiInstance {
-    //    private const val BASE_URL = "https://weatherbit-v1-mashape.p.rapidapi.com/"
+//    private const val BASE_URL = "https://weatherbit-v1-mashape.p.rapidapi.com/"
     private const val BASE_URL = "http://10.0.2.2/manjilKoju/"
     private var retrofit: Retrofit? = null
 
