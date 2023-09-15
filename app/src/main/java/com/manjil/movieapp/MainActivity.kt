@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[BaseViewModel::class.java]
 
-        viewModel.getWeatherData(27.7172,85.324)
+        viewModel.getWeatherData(27.7172, 85.324)
         val spannable = SpannableString(getString(R.string.movie_browser))
         spannable.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(baseContext, R.color.bright_red)),
