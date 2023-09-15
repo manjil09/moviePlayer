@@ -38,7 +38,7 @@ class HomeFragment : Fragment(), ItemOnClickListener {
             setMovieListAdapter(it.data)
             binding.progressBar.visibility = View.GONE
         }
-        viewModel.errorMessage.observe(viewLifecycleOwner){
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
             showErrorMessage(it)
         }
     }
@@ -71,11 +71,11 @@ class HomeFragment : Fragment(), ItemOnClickListener {
     override fun onItemClick(dataItemList: List<DataItem?>?, position: Int) {
         val intent = Intent(context, DetailsActivity::class.java)
         intent.putExtra("movie", dataItemList as ArrayList)
-        intent.putExtra("position",position)
+        intent.putExtra("position", position)
         startActivity(intent)
     }
 
-    private fun showErrorMessage(message:String){
+    private fun showErrorMessage(message: String) {
         binding.viewPagerTrendingSlider.visibility = View.GONE
         binding.progressBar.visibility = View.GONE
         binding.tvResultNotFound.visibility = View.VISIBLE

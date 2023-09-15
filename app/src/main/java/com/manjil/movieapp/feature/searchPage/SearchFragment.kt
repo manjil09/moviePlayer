@@ -49,9 +49,7 @@ class SearchFragment : Fragment(), ItemOnClickListener {
     //returns the list filtered according to key
     private fun filterData(key: String): List<DataItem?> {
         return dataItemList!!.filter {
-            it?.weather?.description!!.lowercase().contains(
-                key ?: ""
-            )
+            it?.weather?.description!!.lowercase().contains(key)
         }
     }
 
@@ -65,7 +63,7 @@ class SearchFragment : Fragment(), ItemOnClickListener {
     private fun setMovieListAdapter(list: List<DataItem?>?) {
         if (list != null) {
             if (list.isNotEmpty()) {
-                binding.tvResultNotFound.visibility = View.INVISIBLE
+                binding.tvResultNotFound.visibility = View.GONE
                 binding.rvMovieList.visibility = View.VISIBLE
 
                 val adapter = MovieListAdapter(list, this, requireContext())
@@ -74,7 +72,7 @@ class SearchFragment : Fragment(), ItemOnClickListener {
                 binding.rvMovieList.adapter = adapter
             } else {
                 binding.tvResultNotFound.visibility = View.VISIBLE
-                binding.rvMovieList.visibility = View.INVISIBLE
+                binding.rvMovieList.visibility = View.GONE
             }
         }
     }
