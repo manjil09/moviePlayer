@@ -25,9 +25,9 @@ class BaseViewModel : ViewModel() {
     val movieList: LiveData<ArrayList<MoviePojo>>
         get() = _movieList
 
-    fun getMovieList() {
-        _movieList.value = movieModel.getMovieList()
-    }
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String>
+        get() = _errorMessage
 
     fun getWeatherData(lat: Double, lon: Double) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -38,12 +38,14 @@ class BaseViewModel : ViewModel() {
                         Log.d("getWeather", "onResponse: ${response.code()} ${response.message()}")
                     } else {
                         Log.d("getWeather", "onResponse: ${response.code()} ${response.message()}")
+                        _errorMessage.value = "Could not fetch Weather Data."
                     }
                 }
 
                 override fun onFailure(call: Call<WeatherPojo>, t: Throwable) {
                     Log.d("getWeather", "onFailure: couldn't connect to server")
                     t.printStackTrace()
+                    _errorMessage.value = "Could not connect to the server."
                 }
             })
         }

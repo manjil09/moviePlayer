@@ -36,11 +36,18 @@ class HomeFragment : Fragment(), ItemOnClickListener {
 
         viewModel.weatherData.observe(viewLifecycleOwner) {
             setMovieListAdapter(it.data)
+            binding.progressBar.visibility = View.GONE
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner){
+            showErrorMessage(it)
         }
     }
 
     private fun setMovieListAdapter(list: List<DataItem?>?) {
         val adapter = TrendingSliderAdapter(list, this, requireContext())
+        binding.viewPagerTrendingSlider.visibility = View.VISIBLE
+        binding.tvResultNotFound.visibility = View.GONE
+
         binding.viewPagerTrendingSlider.adapter = adapter
 
         //making off screen item visible
@@ -66,5 +73,12 @@ class HomeFragment : Fragment(), ItemOnClickListener {
         intent.putExtra("movie", dataItemList as ArrayList)
         intent.putExtra("position",position)
         startActivity(intent)
+    }
+
+    private fun showErrorMessage(message:String){
+        binding.viewPagerTrendingSlider.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+        binding.tvResultNotFound.visibility = View.VISIBLE
+        binding.tvResultNotFound.text = message
     }
 }
