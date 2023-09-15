@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +18,7 @@ import com.manjil.movieapp.model.DataItem
 class SearchFragment : Fragment(), ItemOnClickListener {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: BaseViewModel
+    private var dataItemList: List<DataItem?>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,9 +35,23 @@ class SearchFragment : Fragment(), ItemOnClickListener {
 
         setTabLayout()
 
-//        viewModel.getWeatherData(27.7172,85.324)
         viewModel.weatherData.observe(viewLifecycleOwner) {
-            setMovieListAdapter(it.data)
+            dataItemList = it.data
+            setMovieListAdapter(dataItemList)
+        }
+
+        binding.etSearch.doOnTextChanged { text, _, _, _ ->
+            if (dataItemList != null)
+                setMovieListAdapter(filterData(text.toString().lowercase()))
+        }
+    }
+
+    //returns the list filtered according to key
+    private fun filterData(key: String): List<DataItem?> {
+        return dataItemList!!.filter {
+            it?.weather?.description!!.lowercase().contains(
+                key ?: ""
+            )
         }
     }
 
@@ -46,20 +62,24 @@ class SearchFragment : Fragment(), ItemOnClickListener {
         binding.tlGenre.addTab(binding.tlGenre.newTab().setText("Documentation"))
     }
 
-    private fun setMovieListAdapter(
-//        list: ArrayList<MoviePojo>,
-        list: List<DataItem?>?
-    ) {
-        val adapter = MovieListAdapter(list, this, requireContext())
-        val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-        binding.rvMovieList.layoutManager = layoutManager
-        binding.rvMovieList.adapter = adapter
+    private fun setMovieListAdapter(list: List<DataItem?>?) {
+        if (list != null) {
+            if (list.isNotEmpty()) {
+                binding.tvResultNotFound.visibility = View.INVISIBLE
+                binding.rvMovieList.visibility = View.VISIBLE
+
+                val adapter = MovieListAdapter(list, this, requireContext())
+                val layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                binding.rvMovieList.layoutManager = layoutManager
+                binding.rvMovieList.adapter = adapter
+            } else {
+                binding.tvResultNotFound.visibility = View.VISIBLE
+                binding.rvMovieList.visibility = View.INVISIBLE
+            }
+        }
     }
 
-    override fun onItemClick(
-//        dataItem: MoviePojo
-        dataItemList: List<DataItem?>?, position: Int
-    ) {
+    override fun onItemClick(dataItemList: List<DataItem?>?, position: Int) {
         val intent = Intent(context, DetailsActivity::class.java)
         intent.putExtra("movie", dataItemList as ArrayList)
         intent.putExtra("position", position)

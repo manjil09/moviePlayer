@@ -15,7 +15,6 @@ import com.manjil.movieapp.interfaces.ItemOnClickListener
 import com.manjil.movieapp.model.DataItem
 
 class MovieListAdapter(
-//    private val movieList: ArrayList<MoviePojo>,
     private val movieList: List<DataItem?>?,
     private val onClickListener: ItemOnClickListener,
     private val context: Context
@@ -37,10 +36,7 @@ class MovieListAdapter(
         val data = movieList?.get(position)
 
         val title = data?.weather?.description
-//            data.title
-
         val releaseYear = data?.validDate?.substring(0,4)
-//            data.releaseYear
 
         val spannable = SpannableString("$title ($releaseYear)")
         spannable.setSpan(
@@ -50,7 +46,6 @@ class MovieListAdapter(
             0
         )
         holder.binding.tvMovieTitle.setText(spannable, TextView.BufferType.SPANNABLE)
-//        holder.binding.ivMoviePoster.setImageResource(data.poster)
         Glide
             .with(context)
             .load("$iconPath${data.weather.icon}.png")

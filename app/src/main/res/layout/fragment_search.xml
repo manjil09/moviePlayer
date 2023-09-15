@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_shade"
-    android:orientation="vertical"
     tools:context=".feature.searchPage.SearchFragment">
 
     <EditText
-        style="@style/LoginEditText"
+        android:id="@+id/etSearch"
+        style="@style/SearchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="12dp"
-        android:hint="@string/search"
         android:paddingHorizontal="8dp"
-        android:paddingVertical="12dp"
-        android:textSize="20sp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tlGenre"
@@ -26,16 +24,31 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:layout_marginBottom="4dp"
-        app:tabIndicatorColor="@color/bright_red"
-        app:tabSelectedTextColor="@color/bright_red"
-        app:tabTextColor="@color/white"
-        app:tabTextAppearance="@style/TabLayoutText"
-        app:tabMode="scrollable"
-        app:tabGravity="fill"/>
+        style="@style/TabLayoutStyle"
+        app:layout_constraintTop_toBottomOf="@id/etSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMovieList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tlGenre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvResultNotFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SubTitle"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:text="@string/no_result_found"
+        android:textColor="@color/light_gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tlGenre"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

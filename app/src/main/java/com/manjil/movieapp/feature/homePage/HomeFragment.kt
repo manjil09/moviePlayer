@@ -34,7 +34,6 @@ class HomeFragment : Fragment(), ItemOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel.getWeatherData(27.7172,85.324)
         viewModel.weatherData.observe(viewLifecycleOwner) {
             setMovieListAdapter(it.data)
         }
@@ -62,10 +61,7 @@ class HomeFragment : Fragment(), ItemOnClickListener {
 
     }
 
-    override fun onItemClick(
-//        dataItem: MoviePojo
-        dataItemList: List<DataItem?>?, position: Int
-    ) {
+    override fun onItemClick(dataItemList: List<DataItem?>?, position: Int) {
         val intent = Intent(context, DetailsActivity::class.java)
         intent.putExtra("movie", dataItemList as ArrayList)
         intent.putExtra("position",position)

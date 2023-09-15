@@ -27,7 +27,6 @@ class TrendingSliderAdapter(private val trendingMovieList: List<DataItem?>?, pri
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = trendingMovieList!![position]
         holder.binding.tvMovieTitle.text = data?.weather?.description
-//        holder.binding.ivTrendingPoster.setImageResource(data.poster)
         Glide
             .with(context)
             .load("$iconPath${data?.weather?.icon}.png")

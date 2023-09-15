@@ -24,4 +24,5 @@
     <string name="start_duration">00:00</string>
     <string name="rewind">Rewind 10 seconds</string>
     <string name="fast_forward">Fast forward 10 seconds</string>
+    <string name="no_result_found">No Result Found</string>
 </resources>

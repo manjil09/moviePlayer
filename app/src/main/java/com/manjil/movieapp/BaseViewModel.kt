@@ -30,7 +30,7 @@ class BaseViewModel : ViewModel() {
     }
 
     fun getWeatherData(lat: Double, lon: Double) {
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             movieModel.getWeatherData(lat, lon).enqueue(object : Callback<WeatherPojo> {
                 override fun onResponse(call: Call<WeatherPojo>, response: Response<WeatherPojo>) {
                     if (response.isSuccessful) {
@@ -40,6 +40,7 @@ class BaseViewModel : ViewModel() {
                         Log.d("getWeather", "onResponse: ${response.code()} ${response.message()}")
                     }
                 }
+
                 override fun onFailure(call: Call<WeatherPojo>, t: Throwable) {
                     Log.d("getWeather", "onFailure: couldn't connect to server")
                     t.printStackTrace()

@@ -3,8 +3,5 @@ package com.manjil.movieapp.interfaces
 import com.manjil.movieapp.model.DataItem
 
 interface ItemOnClickListener {
-    fun onItemClick(
-//        dataItem: MoviePojo,
-        dataItemList: List<DataItem?>?, position: Int
-    )
+    fun onItemClick(dataItemList: List<DataItem?>?, position: Int)
 }
