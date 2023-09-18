@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manjil.movieapp.model.MovieModel
-import com.manjil.movieapp.model.MoviePojo
-import com.manjil.movieapp.model.WeatherPojo
+import com.manjil.movieapp.domain.entities.MoviePojo
+import com.manjil.movieapp.domain.entities.WeatherPojo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call

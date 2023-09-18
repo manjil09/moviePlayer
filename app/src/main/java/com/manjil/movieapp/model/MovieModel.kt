@@ -3,10 +3,9 @@ package com.manjil.movieapp.model
 import com.manjil.movieapp.R
 import com.manjil.movieapp.api.ApiInstance
 import com.manjil.movieapp.api.ApiService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.manjil.movieapp.domain.entities.MoviePojo
+import com.manjil.movieapp.domain.entities.WeatherPojo
 import retrofit2.Call
-import retrofit2.create
 
 class MovieModel {
     fun getMovieList(): ArrayList<MoviePojo> {

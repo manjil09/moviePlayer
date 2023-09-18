@@ -1,4 +1,4 @@
-package com.manjil.movieapp.model
+package com.manjil.movieapp.domain.entities
 
 import java.io.Serializable
 

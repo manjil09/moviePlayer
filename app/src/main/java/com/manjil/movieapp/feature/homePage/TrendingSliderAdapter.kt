@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ItemTrendingMovieBinding
 import com.manjil.movieapp.interfaces.ItemOnClickListener
-import com.manjil.movieapp.model.DataItem
+import com.manjil.movieapp.domain.entities.DataItem
 
 class TrendingSliderAdapter(private val trendingMovieList: List<DataItem?>?, private val onClickListener: ItemOnClickListener, private val context: Context): RecyclerView.Adapter<TrendingSliderAdapter.ViewHolder>() {
     private val iconPath = "https://cdn.weatherbit.io/static/img/icons/"

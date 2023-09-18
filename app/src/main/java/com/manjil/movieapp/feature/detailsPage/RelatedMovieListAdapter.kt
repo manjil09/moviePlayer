@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ItemRelatedMovieBinding
 import com.manjil.movieapp.interfaces.ItemOnClickListener
-import com.manjil.movieapp.model.DataItem
+import com.manjil.movieapp.domain.entities.DataItem
 
 class RelatedMovieListAdapter(
     private val movieList: List<DataItem?>?,

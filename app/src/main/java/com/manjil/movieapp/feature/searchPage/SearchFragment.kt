@@ -13,7 +13,7 @@ import com.manjil.movieapp.BaseViewModel
 import com.manjil.movieapp.databinding.FragmentSearchBinding
 import com.manjil.movieapp.feature.detailsPage.DetailsActivity
 import com.manjil.movieapp.interfaces.ItemOnClickListener
-import com.manjil.movieapp.model.DataItem
+import com.manjil.movieapp.domain.entities.DataItem
 
 class SearchFragment : Fragment(), ItemOnClickListener {
     private lateinit var binding: FragmentSearchBinding

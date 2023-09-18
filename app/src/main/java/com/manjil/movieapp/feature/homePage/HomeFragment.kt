@@ -14,7 +14,7 @@ import com.manjil.movieapp.BaseViewModel
 import com.manjil.movieapp.databinding.FragmentHomeBinding
 import com.manjil.movieapp.feature.detailsPage.DetailsActivity
 import com.manjil.movieapp.interfaces.ItemOnClickListener
-import com.manjil.movieapp.model.DataItem
+import com.manjil.movieapp.domain.entities.DataItem
 import kotlin.math.abs
 
 class HomeFragment : Fragment(), ItemOnClickListener {

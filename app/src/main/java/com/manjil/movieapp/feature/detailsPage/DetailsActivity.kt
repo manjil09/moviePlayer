@@ -29,7 +29,7 @@ import com.manjil.movieapp.BaseViewModel
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivityDetailsBinding
 import com.manjil.movieapp.interfaces.ItemOnClickListener
-import com.manjil.movieapp.model.DataItem
+import com.manjil.movieapp.domain.entities.DataItem
 import java.io.Serializable
 
 class DetailsActivity : AppCompatActivity(), ItemOnClickListener {

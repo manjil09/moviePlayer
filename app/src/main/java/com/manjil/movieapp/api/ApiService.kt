@@ -1,6 +1,6 @@
 package com.manjil.movieapp.api
 
-import com.manjil.movieapp.model.WeatherPojo
+import com.manjil.movieapp.domain.entities.WeatherPojo
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
