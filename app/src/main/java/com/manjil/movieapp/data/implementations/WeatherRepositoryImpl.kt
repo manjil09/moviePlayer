@@ -10,8 +10,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.manjil.movieapp.util.Result
+import javax.inject.Inject
 
-class WeatherRepositoryImpl(private val apiService: ApiService) : WeatherRepository {
+class WeatherRepositoryImpl @Inject constructor(
+    private val apiService: ApiService
+) : WeatherRepository {
     override fun get(lat: Double, lon: Double): LiveData<Result<WeatherPojo>> {
         val liveData = MutableLiveData<Result<WeatherPojo>>()
 
@@ -39,6 +42,8 @@ class WeatherRepositoryImpl(private val apiService: ApiService) : WeatherReposit
                 liveData.value = Result.Error("Could not connect to the server.")
             }
         })
+        Log.d("getWeather", "return success!!")
+
         return liveData
     }
 }

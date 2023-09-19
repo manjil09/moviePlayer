@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,12 +14,15 @@ import com.manjil.movieapp.databinding.ActivityMainBinding
 import com.manjil.movieapp.ui.feature.homePage.HomeFragment
 import com.manjil.movieapp.ui.feature.profilePage.ProfileFragment
 import com.manjil.movieapp.ui.feature.searchPage.SearchFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
     private val profileFragment = ProfileFragment()
     private lateinit var viewModel: BaseViewModel
+    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[BaseViewModel::class.java]
 
-        viewModel.getWeatherData(27.7172, 85.324)
+        mainViewModel.getWeatherData(27.7172, 85.324)
         val spannable = SpannableString(getString(R.string.movie_browser))
         spannable.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(baseContext, R.color.bright_red)),
