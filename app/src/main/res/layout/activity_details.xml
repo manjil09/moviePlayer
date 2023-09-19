@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black_shade"
     android:orientation="vertical"
-    tools:context=".feature.detailsPage.DetailsActivity">
+    tools:context=".ui.feature.detailsPage.DetailsActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

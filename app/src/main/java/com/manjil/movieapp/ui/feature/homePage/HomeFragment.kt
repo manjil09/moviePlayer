@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.homePage
+package com.manjil.movieapp.ui.feature.homePage
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.manjil.movieapp.BaseViewModel
+import com.manjil.movieapp.ui.BaseViewModel
 import com.manjil.movieapp.databinding.FragmentHomeBinding
-import com.manjil.movieapp.feature.detailsPage.DetailsActivity
-import com.manjil.movieapp.interfaces.ItemOnClickListener
+import com.manjil.movieapp.ui.feature.detailsPage.DetailsActivity
+import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 import kotlin.math.abs
 

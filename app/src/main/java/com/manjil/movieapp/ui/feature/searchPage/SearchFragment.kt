@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.searchPage
+package com.manjil.movieapp.ui.feature.searchPage
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,10 +9,10 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.manjil.movieapp.BaseViewModel
+import com.manjil.movieapp.ui.BaseViewModel
 import com.manjil.movieapp.databinding.FragmentSearchBinding
-import com.manjil.movieapp.feature.detailsPage.DetailsActivity
-import com.manjil.movieapp.interfaces.ItemOnClickListener
+import com.manjil.movieapp.ui.feature.detailsPage.DetailsActivity
+import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 
 class SearchFragment : Fragment(), ItemOnClickListener {

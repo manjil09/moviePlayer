@@ -1,4 +1,4 @@
-package com.manjil.movieapp
+package com.manjil.movieapp.ui
 
 import android.util.Log
 import androidx.lifecycle.LiveData

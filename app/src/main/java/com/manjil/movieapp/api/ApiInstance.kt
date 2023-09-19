@@ -1,5 +1,6 @@
 package com.manjil.movieapp.api
 
+import com.manjil.movieapp.data.constants.AppConstants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,7 +20,7 @@ object ApiInstance {
             .build()
 
         return retrofit ?: Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(AppConstants.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build().also {

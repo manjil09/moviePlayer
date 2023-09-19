@@ -1,4 +1,4 @@
-package com.manjil.movieapp
+package com.manjil.movieapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivityMainBinding
-import com.manjil.movieapp.feature.homePage.HomeFragment
-import com.manjil.movieapp.feature.profilePage.ProfileFragment
-import com.manjil.movieapp.feature.searchPage.SearchFragment
+import com.manjil.movieapp.ui.feature.homePage.HomeFragment
+import com.manjil.movieapp.ui.feature.profilePage.ProfileFragment
+import com.manjil.movieapp.ui.feature.searchPage.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()

@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.profilePage
+package com.manjil.movieapp.ui.feature.profilePage
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.manjil.movieapp.databinding.FragmentProfileBinding
-import com.manjil.movieapp.feature.loginPage.LoginActivity
+import com.manjil.movieapp.ui.feature.loginPage.LoginActivity
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding

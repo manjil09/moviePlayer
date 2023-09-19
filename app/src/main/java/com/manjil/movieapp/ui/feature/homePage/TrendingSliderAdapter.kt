@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.homePage
+package com.manjil.movieapp.ui.feature.homePage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ItemTrendingMovieBinding
-import com.manjil.movieapp.interfaces.ItemOnClickListener
+import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 
 class TrendingSliderAdapter(private val trendingMovieList: List<DataItem?>?, private val onClickListener: ItemOnClickListener, private val context: Context): RecyclerView.Adapter<TrendingSliderAdapter.ViewHolder>() {

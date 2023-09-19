@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/black_shade"
     android:orientation="vertical"
-    tools:context=".feature.searchPage.SearchFragment">
+    tools:context=".ui.feature.searchPage.SearchFragment">
 
     <EditText
         android:id="@+id/etSearch"

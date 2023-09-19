@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.detailsPage
+package com.manjil.movieapp.ui.feature.detailsPage
 
 import android.content.Context
 import android.graphics.Color
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ItemRelatedMovieBinding
-import com.manjil.movieapp.interfaces.ItemOnClickListener
+import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 
 class RelatedMovieListAdapter(

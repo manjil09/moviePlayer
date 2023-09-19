@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.loginPage
+package com.manjil.movieapp.ui.feature.loginPage
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +12,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.manjil.movieapp.MainActivity
-import com.manjil.movieapp.feature.signUpPage.SignUpActivity
+import com.manjil.movieapp.ui.MainActivity
+import com.manjil.movieapp.ui.feature.signUpPage.SignUpActivity
 import com.manjil.movieapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

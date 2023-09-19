@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.detailsPage
+package com.manjil.movieapp.ui.feature.detailsPage
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -25,10 +25,10 @@ import androidx.media3.datasource.HttpDataSource.HttpDataSourceException
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.manjil.movieapp.BaseViewModel
+import com.manjil.movieapp.ui.BaseViewModel
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivityDetailsBinding
-import com.manjil.movieapp.interfaces.ItemOnClickListener
+import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 import java.io.Serializable
 

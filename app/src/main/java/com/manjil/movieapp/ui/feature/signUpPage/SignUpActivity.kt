@@ -1,4 +1,4 @@
-package com.manjil.movieapp.feature.signUpPage
+package com.manjil.movieapp.ui.feature.signUpPage
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.manjil.movieapp.MainActivity
+import com.manjil.movieapp.ui.MainActivity
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivitySignUpBinding
 

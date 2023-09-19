@@ -1,4 +1,4 @@
-package com.manjil.movieapp.interfaces
+package com.manjil.movieapp.ui.interfaces
 
 import com.manjil.movieapp.domain.entities.DataItem
 

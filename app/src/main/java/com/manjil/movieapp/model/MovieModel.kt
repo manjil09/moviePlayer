@@ -2,7 +2,7 @@ package com.manjil.movieapp.model
 
 import com.manjil.movieapp.R
 import com.manjil.movieapp.api.ApiInstance
-import com.manjil.movieapp.api.ApiService
+import com.manjil.movieapp.data.services.ApiService
 import com.manjil.movieapp.domain.entities.MoviePojo
 import com.manjil.movieapp.domain.entities.WeatherPojo
 import retrofit2.Call

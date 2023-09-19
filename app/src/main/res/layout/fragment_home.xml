@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black_shade"
     android:orientation="vertical"
-    tools:context=".feature.homePage.HomeFragment">
+    tools:context=".ui.feature.homePage.HomeFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvSpotlight"
