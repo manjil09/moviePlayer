@@ -25,6 +25,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.manjil.movieapp.R
+import com.manjil.movieapp.data.constants.AppConstants
 import com.manjil.movieapp.databinding.ActivityDetailsBinding
 import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
@@ -41,11 +42,6 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     private lateinit var ivPlayPause: ImageView
     private val handler = Handler(Looper.getMainLooper())
     private var wasPlaying = false
-    private val videoUrl =
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-    private val thumbnailUrl =
-        "https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
@@ -102,7 +98,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
                 .build()
         binding.playerView.player = player
 
-        val uri = Uri.parse(videoUrl)
+        val uri = Uri.parse(AppConstants.VIDEO_URL)
         val mediaItem = MediaItem.fromUri(uri)
         player.setMediaItem(mediaItem)
         player.addListener(object : Player.Listener {
@@ -201,7 +197,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
             R.string.synopsis_detail, data.weather?.description, data.windCdir, data.windCdirFull
         ).repeat(10)
 
-        Glide.with(this).load(thumbnailUrl).placeholder(R.drawable.img_placeholder)
+        Glide.with(this).load(AppConstants.THUMBNAIL_URL).placeholder(R.drawable.img_placeholder)
             .into(binding.ivMovieThumbnail)
     }
 

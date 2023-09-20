@@ -1,5 +1,6 @@
 package com.manjil.movieapp.ui
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,13 +27,11 @@ class MainViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
-//    lateinit var data: LiveData<Result<WeatherPojo>>
 
     fun getWeatherData(lat: Double, lon: Double) {
         viewModelScope.launch{
-            val weatherData = weatherDataUseCase.get(lat, lon)
-            when (weatherData) {
-                is Result.Success -> _weatherData.value = weatherData.data!!
+            when (val weatherData = weatherDataUseCase.get(lat, lon)) {
+                is Result.Success -> _weatherData.value = weatherData.data
                 is Result.Error -> _errorMessage.value = weatherData.error
             }
         }

@@ -1,27 +1,23 @@
 package com.manjil.movieapp.data.implementations
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.manjil.movieapp.data.services.ApiService
+import com.manjil.movieapp.di.IoDispatcher
 import com.manjil.movieapp.domain.entities.WeatherPojo
 import com.manjil.movieapp.domain.repo.WeatherRepository
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import com.manjil.movieapp.util.Result
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 class WeatherRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : WeatherRepository {
-    override suspend fun get(lat: Double, lon: Double): Result<WeatherPojo> {
-        return withContext(Dispatchers.IO) {
+    override suspend fun get(lat: Double, lon: Double): Result<WeatherPojo> =
+        withContext(ioDispatcher) {
             try {
                 val response = apiService.getWeatherData(lat, lon)
                 if (response.isSuccessful) {
@@ -37,5 +33,4 @@ class WeatherRepositoryImpl @Inject constructor(
                 Result.Error("Could not connect to the server.")
             }
         }
-    }
 }

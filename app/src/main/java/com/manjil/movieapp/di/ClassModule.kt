@@ -17,7 +17,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ClassModule {
-
     @Provides
     @Singleton
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
@@ -47,7 +46,7 @@ object ClassModule {
 
     @Provides
     @Singleton
-    fun provideWeatherDataUseCase(weatherRepository: WeatherRepository): WeatherDataUseCase{
+    fun provideWeatherDataUseCase(weatherRepository: WeatherRepository): WeatherDataUseCase {
         return WeatherDataUseCase(weatherRepository)
     }
 }
