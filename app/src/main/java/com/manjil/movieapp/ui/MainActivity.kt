@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
     private val searchFragment = SearchFragment()
     private val profileFragment = ProfileFragment()
-    private lateinit var viewModel: BaseViewModel
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this)[BaseViewModel::class.java]
 
         mainViewModel.getWeatherData(27.7172, 85.324)
 

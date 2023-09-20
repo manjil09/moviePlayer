@@ -17,7 +17,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
@@ -25,7 +24,6 @@ import androidx.media3.datasource.HttpDataSource.HttpDataSourceException
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.manjil.movieapp.ui.BaseViewModel
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivityDetailsBinding
 import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
@@ -34,7 +32,6 @@ import java.io.Serializable
 
 class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     private lateinit var binding: ActivityDetailsBinding
-    private lateinit var viewModel: BaseViewModel
     private lateinit var dataItemList: ArrayList<DataItem>
     private var position: Int = 0
     private lateinit var player: ExoPlayer
@@ -51,7 +48,6 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[BaseViewModel::class.java]
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

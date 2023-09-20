@@ -29,7 +29,7 @@ class MainViewModel @Inject constructor(
 //    lateinit var data: LiveData<Result<WeatherPojo>>
 
     fun getWeatherData(lat: Double, lon: Double) {
-        viewModelScope.launch {
+        viewModelScope.launch{
             val weatherData = weatherDataUseCase.get(lat, lon)
             when (weatherData) {
                 is Result.Success -> _weatherData.value = weatherData.data!!

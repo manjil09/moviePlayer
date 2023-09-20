@@ -2,24 +2,19 @@ package com.manjil.movieapp.ui.feature.homePage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
-import com.manjil.movieapp.ui.BaseViewModel
 import com.manjil.movieapp.databinding.FragmentHomeBinding
 import com.manjil.movieapp.ui.feature.detailsPage.DetailsActivity
 import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 import com.manjil.movieapp.ui.MainViewModel
-import com.manjil.movieapp.util.Result
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
 
