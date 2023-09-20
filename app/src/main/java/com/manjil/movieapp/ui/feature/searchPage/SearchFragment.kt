@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.manjil.movieapp.ui.BaseViewModel
@@ -14,10 +15,13 @@ import com.manjil.movieapp.databinding.FragmentSearchBinding
 import com.manjil.movieapp.ui.feature.detailsPage.DetailsActivity
 import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
+import com.manjil.movieapp.ui.MainViewModel
+import com.manjil.movieapp.util.Result
 
 class SearchFragment : Fragment(), ItemOnClickListener {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var viewModel: BaseViewModel
+    private val mainViewModel: MainViewModel by activityViewModels()
     private var dataItemList: List<DataItem?>? = null
 
     override fun onCreateView(
@@ -35,10 +39,20 @@ class SearchFragment : Fragment(), ItemOnClickListener {
 
         setTabLayout()
 
-        viewModel.weatherData.observe(viewLifecycleOwner) {
-            dataItemList = it.data
+        mainViewModel.weatherData.observe(viewLifecycleOwner) {
+            dataItemList = it?.data
             setMovieListAdapter(dataItemList)
         }
+//        mainViewModel.data.observe(viewLifecycleOwner) {
+//            when (it) {
+//                is Result.Success -> {
+//                    dataItemList = it.data.data
+//                    setMovieListAdapter(dataItemList)
+//                }
+//
+//                is Result.Error -> {}
+//            }
+//        }
 
         binding.etSearch.doOnTextChanged { text, _, _, _ ->
             if (dataItemList != null)

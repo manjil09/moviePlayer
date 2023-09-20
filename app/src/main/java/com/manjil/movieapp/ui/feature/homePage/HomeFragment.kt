@@ -26,7 +26,6 @@ import kotlin.math.abs
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ItemOnClickListener {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: BaseViewModel
     private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -34,7 +33,6 @@ class HomeFragment : Fragment(), ItemOnClickListener {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        viewModel = ViewModelProvider(requireActivity())[BaseViewModel::class.java]
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -42,26 +40,12 @@ class HomeFragment : Fragment(), ItemOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        mainViewModel.weatherData.observe(viewLifecycleOwner) {
-//            setMovieListAdapter(it?.data)
-//            binding.progressBar.visibility = View.GONE
-//        }
-//        mainViewModel.errorMessage.observe(viewLifecycleOwner) {
-//            showErrorMessage(it)
-//        }
-        mainViewModel.data.observe(viewLifecycleOwner){
-            when(it){
-                is Result.Success -> {
-
-                    setMovieListAdapter(it.data.data)
-                    binding.progressBar.visibility = View.GONE
-                }
-
-                is Result.Error -> showErrorMessage( it.error)
-
-                null -> {showErrorMessage("Could not connect to the server.")
-                    Log.d("getweather", "getWeatherData: null value")}
-            }
+        mainViewModel.weatherData.observe(viewLifecycleOwner) {
+            setMovieListAdapter(it?.data)
+            binding.progressBar.visibility = View.GONE
+        }
+        mainViewModel.errorMessage.observe(viewLifecycleOwner) {
+            showErrorMessage(it)
         }
     }
 

@@ -46,6 +46,7 @@ object AppModule {
     }
 
     @Provides
+    @Singleton
     fun provideWeatherDataUseCase(weatherRepository: WeatherRepository): WeatherDataUseCase{
         return WeatherDataUseCase(weatherRepository)
     }

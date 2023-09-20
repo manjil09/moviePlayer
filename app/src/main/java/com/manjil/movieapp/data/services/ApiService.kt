@@ -3,6 +3,7 @@ package com.manjil.movieapp.data.services
 import com.manjil.movieapp.data.constants.AppConstants
 import com.manjil.movieapp.domain.entities.WeatherPojo
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
