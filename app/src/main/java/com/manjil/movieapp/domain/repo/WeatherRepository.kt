@@ -1,8 +1,5 @@
 package com.manjil.movieapp.domain.repo
 
-import androidx.lifecycle.LiveData
-import com.manjil.movieapp.R
-import com.manjil.movieapp.domain.entities.MoviePojo
 import com.manjil.movieapp.domain.entities.WeatherPojo
 import com.manjil.movieapp.util.Result
 

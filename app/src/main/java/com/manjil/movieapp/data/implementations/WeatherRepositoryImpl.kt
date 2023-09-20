@@ -7,7 +7,6 @@ import com.manjil.movieapp.domain.entities.WeatherPojo
 import com.manjil.movieapp.domain.repo.WeatherRepository
 import com.manjil.movieapp.util.Result
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject

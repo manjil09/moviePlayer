@@ -1,22 +1,18 @@
 package com.manjil.movieapp.ui
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.manjil.movieapp.domain.entities.MoviePojo
 import com.manjil.movieapp.domain.entities.WeatherPojo
 import com.manjil.movieapp.domain.usecases.WeatherDataUseCase
 import com.manjil.movieapp.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class  MainViewModel @Inject constructor(
     private val weatherDataUseCase: WeatherDataUseCase
 ) : ViewModel() {
 

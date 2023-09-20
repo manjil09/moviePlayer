@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivityMainBinding
 import com.manjil.movieapp.ui.feature.homePage.HomeFragment
