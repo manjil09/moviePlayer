@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.manjil.movieapp.databinding.FragmentSearchBinding
 import com.manjil.movieapp.ui.feature.detailsPage.DetailsActivity
 import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 import com.manjil.movieapp.ui.MainViewModel
+import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment(), ItemOnClickListener {
     private lateinit var binding: FragmentSearchBinding
@@ -34,9 +38,18 @@ class SearchFragment : Fragment(), ItemOnClickListener {
 
         setTabLayout()
 
-        mainViewModel.weatherData.observe(viewLifecycleOwner) {
-            dataItemList = it?.data
-            setMovieListAdapter(dataItemList)
+//        mainViewModel.weatherData.observe(viewLifecycleOwner) {
+//            dataItemList = it?.data
+//            setMovieListAdapter(dataItemList)
+//        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.weatherData.collect {
+                    dataItemList = it.data
+                    setMovieListAdapter(dataItemList)
+                }
+            }
         }
 
         binding.etSearch.doOnTextChanged { text, _, _, _ ->

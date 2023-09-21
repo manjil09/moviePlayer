@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -16,6 +19,7 @@ import com.manjil.movieapp.ui.interfaces.ItemOnClickListener
 import com.manjil.movieapp.domain.entities.DataItem
 import com.manjil.movieapp.ui.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -35,12 +39,28 @@ class HomeFragment : Fragment(), ItemOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.weatherData.observe(viewLifecycleOwner) {
-            setMovieListAdapter(it?.data)
-            binding.progressBar.visibility = View.GONE
-        }
-        mainViewModel.errorMessage.observe(viewLifecycleOwner) {
-            showErrorMessage(it)
+//        mainViewModel.weatherData.observe(viewLifecycleOwner) {
+//            setMovieListAdapter(it?.data)
+//            binding.progressBar.visibility = View.GONE
+//        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                launch {
+                    mainViewModel.weatherData.collect {
+                        if (it.data != null) {
+                            setMovieListAdapter(it.data)
+                            binding.progressBar.visibility = View.GONE
+
+                        }
+                    }
+                }
+                launch {
+                    mainViewModel.errorMessage.collect {
+                        if (it.isNotEmpty()) showErrorMessage(it)
+                    }
+                }
+            }
         }
     }
 
