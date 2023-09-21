@@ -8,6 +8,8 @@ import com.manjil.movieapp.domain.entities.WeatherPojo
 import com.manjil.movieapp.domain.usecases.WeatherDataUseCase
 import com.manjil.movieapp.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +29,7 @@ class  MainViewModel @Inject constructor(
     fun getWeatherData(lat: Double, lon: Double) {
         viewModelScope.launch{
             when (val weatherData = weatherDataUseCase.get(lat, lon)) {
-                is Result.Success -> _weatherData.value = weatherData.data
+                is Result.Success -> _weatherData.value = weatherData.data!!
                 is Result.Error -> _errorMessage.value = weatherData.error
             }
         }

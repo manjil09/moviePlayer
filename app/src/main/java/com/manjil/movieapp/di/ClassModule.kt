@@ -19,13 +19,11 @@ import javax.inject.Singleton
 object ClassModule {
     @Provides
     @Singleton
-    fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(AppConstants.BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+    fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+        .baseUrl(AppConstants.BASE_URL)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
 
     @Provides
     @Singleton
@@ -40,13 +38,10 @@ object ClassModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
+    fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideWeatherDataUseCase(weatherRepository: WeatherRepository): WeatherDataUseCase {
-        return WeatherDataUseCase(weatherRepository)
-    }
+    fun provideWeatherDataUseCase(weatherRepository: WeatherRepository): WeatherDataUseCase =
+        WeatherDataUseCase(weatherRepository)
 }
