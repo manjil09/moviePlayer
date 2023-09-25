@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.manjil.movieapp.R
 import com.manjil.movieapp.ui.MainActivity
 import com.manjil.movieapp.ui.feature.signUpPage.SignUpActivity
 import com.manjil.movieapp.databinding.ActivityLoginBinding
@@ -24,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Base_Theme_MovieApp)
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
