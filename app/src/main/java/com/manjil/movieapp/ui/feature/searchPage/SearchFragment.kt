@@ -2,6 +2,7 @@ package com.manjil.movieapp.ui.feature.searchPage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,4 +97,8 @@ class SearchFragment : Fragment(), ItemOnClickListener {
         startActivity(intent)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("bottomNav", "onDestroy: searchFragment")
+    }
 }

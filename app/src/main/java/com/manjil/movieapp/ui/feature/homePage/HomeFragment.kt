@@ -2,6 +2,7 @@ package com.manjil.movieapp.ui.feature.homePage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -51,7 +52,6 @@ class HomeFragment : Fragment(), ItemOnClickListener {
                         if (it.data != null) {
                             setMovieListAdapter(it.data)
                             binding.progressBar.visibility = View.GONE
-
                         }
                     }
                 }
@@ -101,5 +101,10 @@ class HomeFragment : Fragment(), ItemOnClickListener {
         binding.progressBar.visibility = View.GONE
         binding.tvResultNotFound.visibility = View.VISIBLE
         binding.tvResultNotFound.text = message
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("bottomNav", "onDestroy: homeFragment")
     }
 }

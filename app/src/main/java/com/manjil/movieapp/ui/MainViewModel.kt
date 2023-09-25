@@ -1,7 +1,5 @@
 package com.manjil.movieapp.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manjil.movieapp.domain.entities.WeatherPojo

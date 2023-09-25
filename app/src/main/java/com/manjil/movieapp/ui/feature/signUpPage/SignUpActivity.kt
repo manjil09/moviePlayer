@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.manjil.movieapp.ui.MainActivity
 import com.manjil.movieapp.R
 import com.manjil.movieapp.databinding.ActivitySignUpBinding
+import com.manjil.movieapp.util.NetworkUtil
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -48,36 +49,40 @@ class SignUpActivity : AppCompatActivity() {
             return
         }
 
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    Log.d("signUp", "createUserWithEmail:success")
-                    showToastMessage("Sign up successful.")
-                    binding.progressbar.visibility = View.GONE
+        if (NetworkUtil.isNetworkAvailable(this)) {
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("signUp", "createUserWithEmail:success")
+                        showToastMessage("Sign up successful.")
+                        binding.progressbar.visibility = View.GONE
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                } else {
-                    Log.w("signUp", "createUserWithEmail:failure", task.exception)
-                    try {
-                        throw task.exception!!
-                    } catch (e: FirebaseAuthWeakPasswordException) {
-                        binding.etPassword.error = getString(R.string.error_weak_password)
-                        binding.etPassword.requestFocus()
-                    } catch (e: FirebaseAuthInvalidCredentialsException) {
-                        binding.etEmail.error = getString(R.string.error_invalid_email)
-                        binding.etEmail.requestFocus()
-                    } catch (e: FirebaseAuthUserCollisionException) {
-                        binding.etEmail.error = getString(R.string.error_user_exists)
-                        binding.etEmail.requestFocus()
-                    } catch (e: Exception) {
-                        Log.e("signUp", e.message!!)
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    } else {
+                        Log.w("signUp", "createUserWithEmail:failure", task.exception)
+                        try {
+                            throw task.exception!!
+                        } catch (e: FirebaseAuthWeakPasswordException) {
+                            binding.etPassword.error = getString(R.string.error_weak_password)
+                            binding.etPassword.requestFocus()
+                        } catch (e: FirebaseAuthInvalidCredentialsException) {
+                            binding.etEmail.error = getString(R.string.error_invalid_email)
+                            binding.etEmail.requestFocus()
+                        } catch (e: FirebaseAuthUserCollisionException) {
+                            binding.etEmail.error = getString(R.string.error_user_exists)
+                            binding.etEmail.requestFocus()
+                        } catch (e: Exception) {
+                            Log.e("signUp", e.message!!)
+                        }
+                        showToastMessage("Authentication failed")
+                        binding.progressbar.visibility = View.GONE
                     }
-                    showToastMessage("Authentication failed")
-                    binding.progressbar.visibility = View.GONE
                 }
-            }
+        } else
+            showToastMessage("No internet connection. Please check your network settings.")
+
     }
 
     private fun showToastMessage(message: String) {
