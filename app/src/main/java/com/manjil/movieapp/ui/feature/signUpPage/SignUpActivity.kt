@@ -28,24 +28,27 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = Firebase.auth
+        binding.progressbar.visibility = View.INVISIBLE
 
-        binding.btSignUp.setOnClickListener { signUpUser() }
+        binding.btSignUp.setOnClickListener {
+            binding.progressbar.visibility = View.VISIBLE
+            signUpUser()
+        }
     }
 
     private fun signUpUser() {
-        binding.progressbar.visibility = View.VISIBLE
 
         val email: String = binding.etEmail.text.toString()
         val password: String = binding.etPassword.text.toString()
 
         if (TextUtils.isEmpty(email)) {
             showToastMessage("Please enter your email.")
-            binding.progressbar.visibility = View.GONE
+            binding.progressbar.visibility = View.INVISIBLE
             return
         }
         if (password.isEmpty()) {
             showToastMessage("Please enter your password.")
-            binding.progressbar.visibility = View.GONE
+            binding.progressbar.visibility = View.INVISIBLE
             return
         }
 
@@ -55,34 +58,40 @@ class SignUpActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Log.d("signUp", "createUserWithEmail:success")
                         showToastMessage("Sign up successful.")
-                        binding.progressbar.visibility = View.GONE
+                        binding.progressbar.visibility = View.INVISIBLE
 
                         val intent = Intent(this, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                     } else {
+                        binding.progressbar.visibility = View.INVISIBLE
+                        val exception = task.exception
                         Log.w("signUp", "createUserWithEmail:failure", task.exception)
-                        try {
-                            throw task.exception!!
-                        } catch (e: FirebaseAuthWeakPasswordException) {
-                            binding.etPassword.error = getString(R.string.error_weak_password)
-                            binding.etPassword.requestFocus()
-                        } catch (e: FirebaseAuthInvalidCredentialsException) {
-                            binding.etEmail.error = getString(R.string.error_invalid_email)
-                            binding.etEmail.requestFocus()
-                        } catch (e: FirebaseAuthUserCollisionException) {
-                            binding.etEmail.error = getString(R.string.error_user_exists)
-                            binding.etEmail.requestFocus()
-                        } catch (e: Exception) {
-                            Log.e("signUp", e.message!!)
+
+                        when (exception) {
+                            is FirebaseAuthWeakPasswordException -> {
+                                binding.etPassword.error = getString(R.string.error_weak_password)
+                                binding.etPassword.requestFocus()
+                            }
+
+                            is FirebaseAuthInvalidCredentialsException -> {
+                                binding.etEmail.error = getString(R.string.error_invalid_email)
+                                binding.etEmail.requestFocus()
+                            }
+
+                            is FirebaseAuthUserCollisionException -> {
+                                binding.etEmail.error = getString(R.string.error_user_exists)
+                                binding.etEmail.requestFocus()
+                            }
+
+                            else -> showToastMessage("An internal error has occurred. Please check your connection.")
                         }
-                        showToastMessage("Authentication failed")
-                        binding.progressbar.visibility = View.GONE
                     }
                 }
-        } else
+        } else {
             showToastMessage("No internet connection. Please check your network settings.")
-
+            binding.progressbar.visibility = View.INVISIBLE
+        }
     }
 
     private fun showToastMessage(message: String) {

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -27,6 +28,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = Firebase.auth
+        binding.progressBar.visibility = View.INVISIBLE
+
 
         if (firebaseAuth.currentUser != null) {
             startMainActivity()
@@ -34,8 +37,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btLogin.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
+            Log.d("login", "onCreate: ${NetworkUtil.isNetworkAvailable(this)}")
             loginUser()
-            binding.progressBar.visibility = View.INVISIBLE
         }
         binding.tvSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
@@ -49,10 +52,12 @@ class LoginActivity : AppCompatActivity() {
 
         if (TextUtils.isEmpty(email)) {
             showToastMessage("Please enter your email.")
+            binding.progressBar.visibility = View.INVISIBLE
             return
         }
         if (password.isEmpty()) {
             showToastMessage("Please enter your password.")
+            binding.progressBar.visibility = View.INVISIBLE
             return
         }
 
@@ -64,24 +69,21 @@ class LoginActivity : AppCompatActivity() {
                         startMainActivity()
                     } else {
                         binding.progressBar.visibility = View.INVISIBLE
+                        val exception = task.exception
                         Log.w("login", "signInWithEmail:failure", task.exception)
-                        try {
-                            throw task.exception!!
-                        } catch (e: FirebaseAuthInvalidCredentialsException) {
+
+                        if (exception is FirebaseAuthInvalidCredentialsException || exception is FirebaseAuthInvalidUserException) {
                             binding.etPassword.error =
                                 "The password is invalid or the user does not exist."
                             binding.etPassword.requestFocus()
-                        } catch (e: FirebaseAuthInvalidUserException) {
-                            binding.etPassword.error =
-                                "The password is invalid or the user does not exist."
-                            binding.etPassword.requestFocus()
-                        } catch (e: FirebaseException) {
+                        } else
                             showToastMessage("An internal error has occurred. Please check your connection.")
-                        }
                     }
                 }
-        } else
+        } else {
             showToastMessage("No internet connection. Please check your network settings.")
+            binding.progressBar.visibility = View.INVISIBLE
+        }
     }
 
     private fun showToastMessage(message: String) {
