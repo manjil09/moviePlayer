@@ -9,8 +9,8 @@ import retrofit2.http.Query
 
 interface ApiService {
     @Headers(AppConstants.RAPID_API_KEY, AppConstants.RAPID_API_HOST)
-//    @GET("forecast/daily")
-    @GET("dailyWeather.json")
+    @GET("forecast/daily")
+//    @GET("dailyWeather.json")
     suspend fun getWeatherData(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double

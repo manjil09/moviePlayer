@@ -42,6 +42,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     private lateinit var ivPlayPause: ImageView
     private val handler = Handler(Looper.getMainLooper())
     private var wasPlaying = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
@@ -67,6 +68,9 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
         ibNext.setOnClickListener { nextButtonClicked() }
         ivToggleFullscreen.setOnClickListener { fullscreenToggle() }
         ivPlayPause.setOnClickListener { playPauseVideo() }
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) hideSystemUI() else showSystemUI()
+
     }
 
     private fun playPauseVideo() {
@@ -103,7 +107,7 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
         player.setMediaItem(mediaItem)
         player.addListener(object : Player.Listener {
             override fun onPositionDiscontinuity(
-                oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int
+                oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int,
             ) {
                 super.onPositionDiscontinuity(oldPosition, newPosition, reason)
                 getControllerViewById<TextView>(R.id.tvCurrentDuration).text =
@@ -204,13 +208,13 @@ class DetailsActivity : AppCompatActivity(), ItemOnClickListener {
     private fun fullscreenToggle() {
         val orientation = resources.configuration.orientation
         requestedOrientation =
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             else ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            Log.d("handler1", "scalingButtonClicked: ")
-//            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-//        }, 1000)
+        Handler(Looper.getMainLooper()).postDelayed({
+            Log.d("handler1", "fullscreenToggle: ")
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }, 1000)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
