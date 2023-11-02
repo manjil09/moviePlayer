@@ -34,6 +34,9 @@
         android:id="@+id/layoutPassword"
         app:passwordToggleTint="@color/white"
         app:hintEnabled="false"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        style="@style/Widget.AppTheme.TextInputLayout"
         app:passwordToggleEnabled="true">
         <EditText
             android:id="@+id/etPassword"
